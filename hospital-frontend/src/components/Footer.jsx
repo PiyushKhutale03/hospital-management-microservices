@@ -16,11 +16,11 @@ export default function Footer() {
               <span className="text-xl font-bold text-white tracking-tight">MediCare Plus</span>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed">
-              An enterprise-grade, microservices-driven healthcare platform unifying Patient EHR, Doctor Management, and Spring AI clinical triage.
+              An enterprise-grade modern healthcare platform unifying Patient EHR, Doctor Management, and Ask AI clinical triage.
             </p>
             <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-3 py-1.5 rounded-lg w-fit">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-              All 5 Microservices Operational
+              All Hospital Systems Operational
             </div>
           </div>
 
@@ -33,33 +33,33 @@ export default function Footer() {
               <li className="hover:text-brand-400 transition-colors cursor-pointer">Pediatrics & Neonatal Care</li>
               <li className="hover:text-brand-400 transition-colors cursor-pointer">Orthopedic Surgery</li>
               <li className="hover:text-brand-400 transition-colors cursor-pointer">Internal Medicine</li>
-              <li className="hover:text-brand-400 transition-colors cursor-pointer">Spring AI Diagnostic Engine</li>
+              <li className="hover:text-brand-400 transition-colors cursor-pointer">Ask AI Health Engine</li>
             </ul>
           </div>
 
-          {/* Col 3: Microservice Architecture */}
+          {/* Col 3: Key Platform Features */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-white mb-4">Architecture Stack</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white mb-4">Platform Features</h4>
             <ul className="space-y-2 text-sm text-slate-400">
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400"></span>
-                <span>Eureka Registry (Port 8761)</span>
+                <span>Patient Health Records (EHR)</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400"></span>
-                <span>Spring Cloud Gateway (Port 8089)</span>
+                <span>Specialist Doctor Scheduling</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400"></span>
-                <span>Patient Service (Port 8084)</span>
+                <span>Ask AI Medical Assistant</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400"></span>
-                <span>Doctor Service (Port 8082)</span>
+                <span>Drug Interaction Screening</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-400"></span>
-                <span>AI Service + Ollama (Port 8083)</span>
+                <span>Secure Role-Based Access</span>
               </li>
             </ul>
           </div>
@@ -79,7 +79,7 @@ export default function Footer() {
                 <MapPin className="w-3.5 h-3.5" /> 742 Health Boulevard, Medical District
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5" /> support@medicaremicroservices.io
+                <Mail className="w-3.5 h-3.5" /> support@medicareplus.health
               </div>
             </div>
           </div>

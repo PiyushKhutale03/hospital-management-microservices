@@ -146,10 +146,10 @@ export default function PatientDashboard({ onOpenBookModal, onSelectDoctorForBoo
           </div>
         </div>
 
-        {/* Card 3: Quick AI Health Summary */}
+        {/* Card 3: Quick Ask AI Health Summary */}
         <div className="bg-gradient-to-br from-purple-50 to-brand-50 rounded-2xl p-5 border border-purple-100 shadow-sm space-y-3">
           <div className="flex items-center justify-between text-xs font-bold text-purple-700 uppercase tracking-wider">
-            <span>Spring AI Assistant</span>
+            <span>Ask AI Assistant</span>
             <Sparkles className="w-4 h-4 text-purple-600" />
           </div>
           <p className="text-xs text-purple-950/80 leading-relaxed">
@@ -159,7 +159,7 @@ export default function PatientDashboard({ onOpenBookModal, onSelectDoctorForBoo
             to="/ai-assistant"
             className="block text-center py-2 px-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-colors shadow-sm"
           >
-            Launch AI Symptom Triage →
+            Launch Ask AI →
           </Link>
         </div>
 

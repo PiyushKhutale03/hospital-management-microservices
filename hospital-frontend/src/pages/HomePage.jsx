@@ -59,7 +59,7 @@ export default function HomePage({ onOpenBookModal, onSelectDoctorForBooking }) 
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-100/70 text-brand-800 text-xs font-bold tracking-wide uppercase shadow-sm">
                 <Sparkles className="w-4 h-4 text-brand-600 animate-spin" style={{ animationDuration: '6s' }} />
-                Spring AI & Microservices Cloud
+                Ask AI & Smart Healthcare Cloud
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
@@ -70,7 +70,7 @@ export default function HomePage({ onOpenBookModal, onSelectDoctorForBooking }) 
               </h1>
 
               <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-                Seamlessly schedule appointments with board-certified physicians, explore intelligent AI symptom triage, and access unified health records powered by high-availability microservices.
+                Seamlessly schedule appointments with board-certified physicians, explore intelligent AI symptom triage, and access unified health records.
               </p>
 
               {/* Action Buttons */}
@@ -88,7 +88,7 @@ export default function HomePage({ onOpenBookModal, onSelectDoctorForBooking }) 
                   className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white hover:bg-purple-50 text-purple-700 font-bold text-sm border border-purple-200 shadow-sm hover:shadow transition-all flex items-center justify-center gap-2"
                 >
                   <Bot className="w-4 h-4 text-purple-600" />
-                  <span>Try AI Symptom Triage</span>
+                  <span>Ask AI Health Assistant</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -101,11 +101,11 @@ export default function HomePage({ onOpenBookModal, onSelectDoctorForBooking }) 
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span>Resilient Feign Fallbacks</span>
+                  <span>Verified Specialists</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span>Spring AI Ollama Triage</span>
+                  <span>Ask AI Clinical Triage</span>
                 </div>
               </div>
             </div>
@@ -121,12 +121,12 @@ export default function HomePage({ onOpenBookModal, onSelectDoctorForBooking }) 
                     <div>
                       <div className="text-sm font-bold text-slate-800">Hospital Cloud Live</div>
                       <div className="text-[11px] text-emerald-600 font-semibold flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Eureka Registry Connected
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> System Online & Connected
                       </div>
                     </div>
                   </div>
-                  <span className="px-2.5 py-1 text-[10px] font-bold uppercase rounded-lg bg-slate-100 text-slate-600">
-                    Port 8089
+                  <span className="px-2.5 py-1 text-[10px] font-bold uppercase rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    Active
                   </span>
                 </div>
 
@@ -136,7 +136,7 @@ export default function HomePage({ onOpenBookModal, onSelectDoctorForBooking }) 
                     <span className="flex items-center gap-1.5">
                       <Bot className="w-4 h-4 text-purple-600" /> AI Clinical Assessment
                     </span>
-                    <span className="text-[10px] bg-purple-200 text-purple-800 px-2 py-0.5 rounded-full">Spring AI</span>
+                    <span className="text-[10px] bg-purple-200 text-purple-800 px-2 py-0.5 rounded-full">Ask AI</span>
                   </div>
                   <p className="text-xs text-purple-950/80 leading-relaxed italic">
                     "Patient reports sudden migraine aura and mild light sensitivity. Evaluating possible tension vs migraine cluster..."
@@ -145,15 +145,15 @@ export default function HomePage({ onOpenBookModal, onSelectDoctorForBooking }) 
                     to="/ai-assistant"
                     className="block text-center text-xs font-bold text-purple-700 hover:text-purple-800 bg-white py-2 rounded-xl border border-purple-200 shadow-sm"
                   >
-                    Open Full Diagnosis Chat →
+                    Open Ask AI Chat →
                   </Link>
                 </div>
 
-                {/* Microservices Metrics Grid */}
+                {/* Metrics Grid */}
                 <div className="grid grid-cols-2 gap-3 text-center">
                   <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                    <div className="text-xl font-extrabold text-slate-800">5</div>
-                    <div className="text-[10px] font-semibold text-slate-500 uppercase">Microservices</div>
+                    <div className="text-xl font-extrabold text-slate-800">24/7</div>
+                    <div className="text-[10px] font-semibold text-slate-500 uppercase">Care Services</div>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
                     <div className="text-xl font-extrabold text-brand-600">99.9%</div>
@@ -288,25 +288,25 @@ export default function HomePage({ onOpenBookModal, onSelectDoctorForBooking }) 
         </div>
       </section>
 
-      {/* 4. Spring AI Health Suite Feature Banner */}
+      {/* 4. Ask AI Health Assistant Feature Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl bg-gradient-to-r from-slate-900 via-purple-950 to-brand-950 p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden">
           <div className="relative z-10 max-w-2xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold uppercase tracking-wider border border-purple-400/30">
-              <Bot className="w-4 h-4 text-purple-400" /> Integrated AI Microservice
+              <Bot className="w-4 h-4 text-purple-400" /> Ask AI Clinical Intelligence
             </div>
             <h3 className="text-3xl sm:text-4xl font-black tracking-tight">
               Clinical Intelligence At Your Fingertips
             </h3>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-              Empowered by Spring AI and local Ollama inference, our AI Service offers 5 core diagnostic aids: symptom assessment, physician specialty matching, medication interaction checking, emergency triage, and personalized diet planning.
+              Empowered by Gemini AI, Ask AI offers 6 core clinical aids: symptom assessment, physician specialty matching, medication profiles, drug interaction checking, emergency triage, and personalized diet advice.
             </p>
             <div className="pt-2">
               <Link
                 to="/ai-assistant"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-lg shadow-purple-900/50 transition-all hover:scale-105"
               >
-                <span>Launch AI Health Suite</span>
+                <span>Ask AI Assistant</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

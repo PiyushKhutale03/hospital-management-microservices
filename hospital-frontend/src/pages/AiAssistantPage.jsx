@@ -97,7 +97,7 @@ export default function AiAssistantPage() {
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }, ...prev.slice(0, 4)]);
     } catch (err) {
-      setResponse("AI Microservice is currently initializing or unreachable. Please verify Spring AI / Ollama service connection.");
+      setResponse("AI Assistant is currently initializing or unreachable. Please verify your connection.");
     } finally {
       setLoading(false);
     }
@@ -112,13 +112,13 @@ export default function AiAssistantPage() {
       <div className="bg-gradient-to-r from-purple-900 via-slate-900 to-brand-900 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
         <div className="relative z-10 max-w-3xl space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold uppercase tracking-wider border border-purple-400/30">
-            <Sparkles className="w-3.5 h-3.5" /> Spring AI Diagnostic Suite
+            <Sparkles className="w-3.5 h-3.5" /> Ask AI Diagnostic Suite
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-            AI Clinical Assistant & Triage Engine
+            Ask AI Clinical Assistant
           </h1>
           <p className="text-sm text-slate-300 leading-relaxed font-normal">
-            Interact with our dedicated Spring AI microservice powered by local LLM inference for preliminary symptom assessment, drug interaction screening, and emergency risk triage.
+            Interact with Ask AI powered by Gemini for preliminary symptom assessment, specialist doctor recommendations, drug interaction screening, and emergency triage.
           </p>
         </div>
       </div>
@@ -194,7 +194,7 @@ export default function AiAssistantPage() {
                 </div>
               </div>
               <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
-                POST /ai/{activeTab === 'doctor' ? 'doctor-recommend' : activeTab === 'medicine' ? 'medicine-info' : activeTab === 'emergency' ? 'emergency-check' : activeTab === 'diet' ? 'diet-advice' : 'symptom-check'}
+                Ask AI Engine
               </span>
             </div>
 

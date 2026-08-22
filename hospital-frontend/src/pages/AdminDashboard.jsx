@@ -98,30 +98,43 @@ export default function AdminDashboard() {
         </button>
       </div>
 
-      {/* Microservice Topology Health Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-        {[
-          { name: 'Service Registry', port: '8761', status: 'Healthy', icon: Layers, color: 'text-brand-600' },
-          { name: 'API Gateway', port: '8089', status: 'Healthy', icon: Server, color: 'text-purple-600' },
-          { name: 'Patient Service', port: '8084', status: 'Healthy', icon: Database, color: 'text-emerald-600' },
-          { name: 'Doctor Service', port: '8082', status: 'Healthy', icon: UserCheck, color: 'text-amber-600' },
-          { name: 'Spring AI Service', port: '8083', status: 'Healthy', icon: Bot, color: 'text-pink-600' },
-        ].map((svc, idx) => {
-          const Icon = svc.icon;
-          return (
-            <div key={idx} className="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-2">
-              <div className="flex items-center justify-between">
-                <Icon className={`w-5 h-5 ${svc.color}`} />
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              </div>
-              <div className="text-xs font-bold text-slate-800">{svc.name}</div>
-              <div className="flex items-center justify-between text-[10px] text-slate-500">
-                <span>Port {svc.port}</span>
-                <span className="font-semibold text-emerald-600">{svc.status}</span>
-              </div>
-            </div>
-          );
-        })}
+      {/* Hospital Key Metrics Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-2">
+          <div className="flex items-center justify-between">
+            <Users className="w-5 h-5 text-brand-600" />
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          </div>
+          <div className="text-2xl font-extrabold text-slate-900">{patients.length || 120}+</div>
+          <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Registered Patients</div>
+        </div>
+
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-2">
+          <div className="flex items-center justify-between">
+            <UserCheck className="w-5 h-5 text-emerald-600" />
+            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+          </div>
+          <div className="text-2xl font-extrabold text-slate-900">{doctors.length || 12} Specialists</div>
+          <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Onboarded Doctors</div>
+        </div>
+
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-2">
+          <div className="flex items-center justify-between">
+            <Layers className="w-5 h-5 text-purple-600" />
+            <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+          </div>
+          <div className="text-2xl font-extrabold text-slate-900">6 Wings</div>
+          <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Clinical Departments</div>
+        </div>
+
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-2">
+          <div className="flex items-center justify-between">
+            <Bot className="w-5 h-5 text-pink-600" />
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          </div>
+          <div className="text-2xl font-extrabold text-slate-900">Active 24/7</div>
+          <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Ask AI Health Engine</div>
+        </div>
       </div>
 
       {/* Main Section: Patient Directory & Doctors Directory */}
@@ -136,7 +149,7 @@ export default function AdminDashboard() {
                 <Users className="w-5 h-5 text-brand-600" />
                 Master Patient Directory
               </h2>
-              <p className="text-xs text-slate-500">Paginated patient data from Patient Microservice (POST /admin/patients)</p>
+              <p className="text-xs text-slate-500">Registered patient directory and clinical health records</p>
             </div>
 
             {/* Search */}
@@ -260,7 +273,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-bold text-slate-900">Onboard New Medical Doctor</h3>
-                <p className="text-xs text-slate-500">Calls Doctor Microservice /admin/onBoardNewDoctor</p>
+                <p className="text-xs text-slate-500">Register credentials, clinical department, and fee profile</p>
               </div>
               <button
                 onClick={() => setShowOnboardModal(false)}
@@ -273,7 +286,7 @@ export default function AdminDashboard() {
             {onboardSuccess && (
               <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold rounded-xl flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>Doctor successfully onboarded into Doctor Service!</span>
+                <span>Doctor successfully registered and onboarded!</span>
               </div>
             )}
 

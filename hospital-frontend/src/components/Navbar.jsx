@@ -41,7 +41,7 @@ export default function Navbar({ onOpenBookModal }) {
                 MediCare Plus
               </span>
               <span className="hidden sm:block text-[11px] font-medium text-slate-500 tracking-wider uppercase">
-                Microservices Health Cloud
+                Healthcare Management Platform
               </span>
             </div>
           </Link>
@@ -68,9 +68,9 @@ export default function Navbar({ onOpenBookModal }) {
               }`}
             >
               <Bot className="w-4 h-4 text-purple-600" />
-              <span>AI Health Suite</span>
+              <span>Ask AI</span>
               <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-sm">
-                Spring AI
+                Gemini
               </span>
             </Link>
 
@@ -119,7 +119,7 @@ export default function Navbar({ onOpenBookModal }) {
               <button
                 onClick={() => setDemoDropdownOpen(!demoDropdownOpen)}
                 className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-colors shadow-sm"
-                title="Switch active role to test microservices features"
+                title="Switch active role"
               >
                 <Sparkles className="w-3.5 h-3.5 text-brand-600" />
                 <span>Role: <strong className="text-brand-700 font-bold">{role}</strong></span>
@@ -247,10 +247,10 @@ export default function Navbar({ onOpenBookModal }) {
           >
             <span className="flex items-center gap-2">
               <Bot className="w-5 h-5 text-purple-600" />
-              AI Health Suite
+              Ask AI
             </span>
             <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-purple-600 text-white">
-              Spring AI
+              Gemini
             </span>
           </Link>
           <Link
