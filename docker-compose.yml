@@ -129,7 +129,9 @@ services:
         condition: service_started
     environment:
       - SERVER_PORT=8083
-      - SPRING_AI_OLLAMA_BASE_URL=http://ollama:11434
+      - SPRING_AI_OPENAI_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - SPRING_AI_OPENAI_CHAT_OPTIONS_MODEL=gemini-3.7-flash
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
       - JWT_SECRET_KEY=\
     networks:
