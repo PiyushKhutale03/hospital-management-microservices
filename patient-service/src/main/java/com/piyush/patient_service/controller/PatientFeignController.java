@@ -1,9 +1,11 @@
 package com.piyush.patient_service.controller;
 
+import com.piyush.patient_service.dto.AppointmentResponseDto;
 import com.piyush.patient_service.dto.PatientResponseDto;
 import com.piyush.patient_service.dto.UserResponseDto;
 import com.piyush.patient_service.model.User;
 import com.piyush.patient_service.repo.UserRepo;
+import com.piyush.patient_service.service.AppointmentService;
 import com.piyush.patient_service.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,8 @@ import java.util.stream.Collectors;
 public class PatientFeignController {
 
     private final PatientService patientService;
-    private final UserRepo userRepo;   // ✅ naya add karo
+    private final UserRepo userRepo;
+    private final AppointmentService appointmentService;
 
     @GetMapping("/patients")
     public ResponseEntity<List<PatientResponseDto>> getAllPatients(
@@ -33,7 +36,11 @@ public class PatientFeignController {
         return ResponseEntity.ok(patientService.getPatientById(id));
     }
 
-    // ✅ naya endpoint add karo
+    @GetMapping("/appointments/doctor")
+    public ResponseEntity<List<AppointmentResponseDto>> getAppointmentsByDoctorId(@RequestParam Long doctorId) {
+        return ResponseEntity.ok(appointmentService.getAppointmentsByDoctorId(doctorId));
+    }
+
     @GetMapping("/users/{id}")
     public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) {
         User user = userRepo.findById(id).orElseThrow();

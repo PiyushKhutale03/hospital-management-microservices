@@ -9,6 +9,7 @@ import com.piyush.doctor_service.model.User;
 import com.piyush.doctor_service.model.type.RoleType;
 import com.piyush.doctor_service.repo.DoctorRepo;
 import com.piyush.doctor_service.repo.UserRepo;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,12 @@ public class DoctorService {
                 .build();
 
         return modelMapper.map(doctorRepo.save(doctor), DoctorResponseDto.class);
+    }
+
+    public DoctorResponseDto getDoctorById(Long id) {
+        Doctor doctor = doctorRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Doctor not found with id: " + id));
+        return modelMapper.map(doctor, DoctorResponseDto.class);
     }
 
     public List<DoctorResponseDto> getAllDoctors() {

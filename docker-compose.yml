@@ -1,0 +1,199 @@
+version: '3.8'
+
+services:
+  # =========================================================================
+  # 1. Databases
+  # =========================================================================
+  patient-db:
+    image: postgres:16-alpine
+    container_name: patient-db
+    restart: always
+    environment:
+      POSTGRES_DB: patient_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: \
+    ports:
+      - "5432:5432"
+    volumes:
+      - patient_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d patient_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - hospital-net
+
+  doctor-db:
+    image: postgres:16-alpine
+    container_name: doctor-db
+    restart: always
+    environment:
+      POSTGRES_DB: doctor_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: \
+    ports:
+      - "5433:5432"
+    volumes:
+      - doctor_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d doctor_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - hospital-net
+
+  # =========================================================================
+  # 2. Service Discovery (Eureka Server)
+  # =========================================================================
+  service-registry:
+    build:
+      context: ./service-registry
+      dockerfile: Dockerfile
+    container_name: service-registry
+    restart: on-failure
+    ports:
+      - "8761:8761"
+    environment:
+      - SERVER_PORT=8761
+      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=false
+      - EUREKA_CLIENT_FETCH_REGISTRY=false
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8761/actuator/health || exit 0"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - hospital-net
+
+  # =========================================================================
+  # 3. Microservices
+  # =========================================================================
+  patient-service:
+    build:
+      context: ./patient-service
+      dockerfile: Dockerfile
+    container_name: patient-service
+    restart: on-failure
+    ports:
+      - "8084:8084"
+    depends_on:
+      patient-db:
+        condition: service_healthy
+      service-registry:
+        condition: service_started
+    environment:
+      - SERVER_PORT=8084
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://patient-db:5432/patient_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=\
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+      - JWT_SECRET_KEY=\
+    networks:
+      - hospital-net
+
+  doctor-service:
+    build:
+      context: ./doctor-service
+      dockerfile: Dockerfile
+    container_name: doctor-service
+    restart: on-failure
+    ports:
+      - "8082:8082"
+    depends_on:
+      doctor-db:
+        condition: service_healthy
+      service-registry:
+        condition: service_started
+    environment:
+      - SERVER_PORT=8082
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://doctor-db:5432/doctor_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=\
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+      - JWT_SECRET_KEY=\
+    networks:
+      - hospital-net
+
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: ai-service
+    restart: on-failure
+    ports:
+      - "8083:8083"
+    depends_on:
+      service-registry:
+        condition: service_started
+    environment:
+      - SERVER_PORT=8083
+      - SPRING_AI_OLLAMA_BASE_URL=http://ollama:11434
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+      - JWT_SECRET_KEY=\
+    networks:
+      - hospital-net
+
+  # =========================================================================
+  # 4. Ollama LLM Service (For AI Service)
+  # =========================================================================
+  ollama:
+    image: ollama/ollama:latest
+    container_name: hospital-ollama
+    restart: always
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - hospital-net
+
+  # =========================================================================
+  # 5. API Gateway
+  # =========================================================================
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    restart: on-failure
+    ports:
+      - "8089:8089"
+    depends_on:
+      - service-registry
+      - patient-service
+      - doctor-service
+      - ai-service
+    environment:
+      - SERVER_PORT=8089
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+    networks:
+      - hospital-net
+
+  # =========================================================================
+  # 6. React Frontend Application
+  # =========================================================================
+  hospital-frontend:
+    build:
+      context: ./hospital-frontend
+      dockerfile: Dockerfile
+    container_name: hospital-frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - api-gateway
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8089
+    networks:
+      - hospital-net
+
+volumes:
+  patient_db_data:
+  doctor_db_data:
+  ollama_data:
+
+networks:
+  hospital-net:
+    driver: bridge
