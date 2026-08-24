@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { patientService, doctorService } from '../services/api';
 import { MOCK_DOCTORS, MOCK_PATIENTS } from '../services/mockData';
 import { 
@@ -16,10 +16,12 @@ import {
   Layers,
   ChevronLeft,
   ChevronRight,
-  Plus
+  Plus,
+  Lock
 } from 'lucide-react';
 
 export default function AdminDashboard() {
+  const { user, token } = useAuth();
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -35,6 +37,7 @@ export default function AdminDashboard() {
   const [newDocUserId, setNewDocUserId] = useState('');
   const [onboardSuccess, setOnboardSuccess] = useState(false);
   const [onboardLoading, setOnboardLoading] = useState(false);
+  const [onboardError, setOnboardError] = useState(null);
 
   useEffect(() => {
     doctorService.getAllDoctors().then(docs => setDoctors(docs));
@@ -45,7 +48,14 @@ export default function AdminDashboard() {
     e.preventDefault();
     if (!newDocName || !newDocSpec) return;
 
+    // Strict RBAC & JWT check
+    if (user?.role !== 'ADMIN') {
+      setOnboardError('403 Forbidden: Administrator role is strictly required.');
+      return;
+    }
+
     setOnboardLoading(true);
+    setOnboardError(null);
     const payload = {
       name: newDocName,
       specialization: newDocSpec,
@@ -290,6 +300,13 @@ export default function AdminDashboard() {
               </div>
             )}
 
+            {onboardError && (
+              <div className="p-3 bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold rounded-xl flex items-center gap-2">
+                <Lock className="w-4 h-4 text-rose-600 shrink-0" />
+                <span>{onboardError}</span>
+              </div>
+            )}
+
             <form onSubmit={handleOnboardSubmit} className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
@@ -297,7 +314,7 @@ export default function AdminDashboard() {
                 </label>
                 <input
                   type="text"
-                  placeholder="E.g., Dr. Jonathan Myers"
+                  placeholder="E.g., Dr. Sameer Joshi"
                   value={newDocName}
                   onChange={(e) => setNewDocName(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-amber-500 outline-none"

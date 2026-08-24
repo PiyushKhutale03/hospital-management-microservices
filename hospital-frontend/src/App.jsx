@@ -5,6 +5,8 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AppointmentModal from './components/AppointmentModal';
 
+import ProtectedRoute from './components/ProtectedRoute';
+
 import HomePage from './pages/HomePage';
 import AiAssistantPage from './pages/AiAssistantPage';
 import PatientDashboard from './pages/PatientDashboard';
@@ -43,14 +45,30 @@ export default function App() {
               <Route 
                 path="/patient" 
                 element={
-                  <PatientDashboard 
-                    onOpenBookModal={() => handleOpenBookModal()} 
-                    onSelectDoctorForBooking={(id) => handleOpenBookModal(id)}
-                  />
+                  <ProtectedRoute allowedRoles={['PATIENT', 'ADMIN']}>
+                    <PatientDashboard 
+                      onOpenBookModal={() => handleOpenBookModal()} 
+                      onSelectDoctorForBooking={(id) => handleOpenBookModal(id)}
+                    />
+                  </ProtectedRoute>
                 } 
               />
-              <Route path="/doctor" element={<DoctorDashboard />} />
-              <Route path="/admin" element={<AdminDashboard />} />
+              <Route 
+                path="/doctor" 
+                element={
+                  <ProtectedRoute allowedRoles={['DOCTOR', 'ADMIN']}>
+                    <DoctorDashboard />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/admin" 
+                element={
+                  <ProtectedRoute allowedRoles={['ADMIN']}>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                } 
+              />
               <Route path="/login" element={<LoginPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
