@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { 
   HeartPulse, 
@@ -12,20 +12,25 @@ import {
   Sparkles, 
   ArrowRight, 
   AlertCircle,
-  CheckCircle2
+  CheckCircle2,
+  Info
 } from 'lucide-react';
 
 export default function LoginPage() {
-  const { login, register, switchDemoRole } = useAuth();
+  const { login, register } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isSignUp, setIsSignUp] = useState(false);
-  const [role, setRole] = useState('PATIENT');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const destinationNotice = location.state?.requiredRole
+    ? `Authentication required to access ${location.state.requiredRole} Portal.`
+    : null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,18 +46,19 @@ export default function LoginPage() {
       const res = await register({
         username,
         password,
-        name: name || username.split('@')[0],
-        roles: [role]
+        name: name || username.split('@')[0]
       });
       if (res.success) {
-        navigate(role === 'ADMIN' ? '/admin' : role === 'DOCTOR' ? '/doctor' : '/patient');
+        navigate('/patient', { replace: true });
       } else {
         setError('Registration failed. Please check your credentials.');
       }
     } else {
       const res = await login(username, password);
       if (res.success) {
-        navigate(res.user.role === 'ADMIN' ? '/admin' : res.user.role === 'DOCTOR' ? '/doctor' : '/patient');
+        const defaultDest = res.user.role === 'ADMIN' ? '/admin' : res.user.role === 'DOCTOR' ? '/doctor' : '/patient';
+        const target = location.state?.from?.pathname || defaultDest;
+        navigate(target, { replace: true });
       } else {
         setError('Login failed. Invalid email or password.');
       }
@@ -108,6 +114,13 @@ export default function LoginPage() {
               New Registration
             </button>
           </div>
+
+          {destinationNotice && !error && (
+            <div className="p-3 bg-amber-50 border border-amber-200 text-amber-900 text-xs font-semibold rounded-xl flex items-center gap-2">
+              <Info className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>{destinationNotice}</span>
+            </div>
+          )}
 
           {error && (
             <div className="p-3 bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold rounded-xl flex items-center gap-2">
