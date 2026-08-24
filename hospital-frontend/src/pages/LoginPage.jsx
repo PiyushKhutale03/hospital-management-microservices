@@ -202,37 +202,89 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Quick Demo Logins Ribbon */}
+          {/* Verified System Accounts Box */}
           <div className="pt-4 border-t border-slate-100 space-y-3">
-            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider text-center">
-              1-Click Demo Accounts
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                Authorized System Accounts (Click to Fill)
+              </span>
+              <span className="text-[10px] font-semibold text-brand-600">Autofills Form</span>
             </div>
-            <div className="grid grid-cols-3 gap-2">
+
+            <div className="space-y-2">
+              {/* Admin Card */}
               <button
                 type="button"
-                onClick={() => handleQuickLogin('PATIENT')}
-                className="p-2 rounded-xl bg-slate-50 hover:bg-brand-50 border border-slate-200 text-center transition-colors group"
+                onClick={() => {
+                  setUsername('admin@medicareplus.in');
+                  setPassword('Admin@123');
+                  setIsSignUp(false);
+                  setError(null);
+                }}
+                className="w-full p-2.5 rounded-2xl bg-amber-50/70 hover:bg-amber-100/70 border border-amber-200 text-left transition-all flex items-center justify-between group"
               >
-                <Calendar className="w-4 h-4 text-brand-600 mx-auto group-hover:scale-110 transition-transform" />
-                <span className="block text-[10px] font-bold text-slate-700 mt-1">Patient</span>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-xs shadow-sm">
+                    <ShieldCheck className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                      Chief Administrator <span className="px-1.5 py-0.2 rounded bg-amber-200/70 text-amber-900 text-[10px] font-bold">ADMIN</span>
+                    </div>
+                    <div className="text-[11px] font-mono text-slate-500">admin@medicareplus.in • Pass: Admin@123</div>
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-amber-700 opacity-0 group-hover:opacity-100 transition-opacity" />
               </button>
 
+              {/* Doctor Card */}
               <button
                 type="button"
-                onClick={() => handleQuickLogin('DOCTOR')}
-                className="p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200 text-center transition-colors group"
+                onClick={() => {
+                  setUsername('dr.rajesh@medicare.in');
+                  setPassword('Doctor@123');
+                  setIsSignUp(false);
+                  setError(null);
+                }}
+                className="w-full p-2.5 rounded-2xl bg-emerald-50/70 hover:bg-emerald-100/70 border border-emerald-200 text-left transition-all flex items-center justify-between group"
               >
-                <UserCheck className="w-4 h-4 text-emerald-600 mx-auto group-hover:scale-110 transition-transform" />
-                <span className="block text-[10px] font-bold text-slate-700 mt-1">Doctor</span>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                    <UserCheck className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                      Dr. Rajesh Sharma <span className="px-1.5 py-0.2 rounded bg-emerald-200/70 text-emerald-900 text-[10px] font-bold">DOCTOR</span>
+                    </div>
+                    <div className="text-[11px] font-mono text-slate-500">dr.rajesh@medicare.in • Pass: Doctor@123</div>
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity" />
               </button>
 
+              {/* Patient Card */}
               <button
                 type="button"
-                onClick={() => handleQuickLogin('ADMIN')}
-                className="p-2 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 text-center transition-colors group"
+                onClick={() => {
+                  setUsername('rahul.deshmukh@gmail.com');
+                  setPassword('Patient@123');
+                  setIsSignUp(false);
+                  setError(null);
+                }}
+                className="w-full p-2.5 rounded-2xl bg-brand-50/70 hover:bg-brand-100/70 border border-brand-200 text-left transition-all flex items-center justify-between group"
               >
-                <ShieldCheck className="w-4 h-4 text-amber-600 mx-auto group-hover:scale-110 transition-transform" />
-                <span className="block text-[10px] font-bold text-slate-700 mt-1">Admin</span>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                    <Calendar className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                      Rahul Deshmukh <span className="px-1.5 py-0.2 rounded bg-brand-200/70 text-brand-900 text-[10px] font-bold">PATIENT</span>
+                    </div>
+                    <div className="text-[11px] font-mono text-slate-500">rahul.deshmukh@gmail.com • Pass: Patient@123</div>
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-brand-700 opacity-0 group-hover:opacity-100 transition-opacity" />
               </button>
             </div>
           </div>

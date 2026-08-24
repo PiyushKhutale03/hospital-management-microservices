@@ -32,6 +32,30 @@ export const DEMO_USERS = {
   }
 };
 
+export const DEFAULT_ACCOUNTS = {
+  ADMIN: {
+    username: 'admin@medicareplus.in',
+    password: 'Admin@123',
+    name: 'Chief Administrator (Piyush Khutale)',
+    role: 'ADMIN',
+    badge: 'Hospital SuperAdmin'
+  },
+  DOCTOR: {
+    username: 'dr.rajesh@medicare.in',
+    password: 'Doctor@123',
+    name: 'Dr. Rajesh Sharma',
+    role: 'DOCTOR',
+    badge: 'Cardiology Specialist'
+  },
+  PATIENT: {
+    username: 'rahul.deshmukh@gmail.com',
+    password: 'Patient@123',
+    name: 'Rahul Deshmukh',
+    role: 'PATIENT',
+    badge: 'Registered Patient'
+  }
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('user_profile');
@@ -39,13 +63,13 @@ export const AuthProvider = ({ children }) => {
       try {
         return JSON.parse(saved);
       } catch (e) {
-        return DEMO_USERS.PATIENT;
+        return null;
       }
     }
-    return DEMO_USERS.PATIENT; // Default to Patient persona for immediate interactive browsing
+    return null; // Strict Authentication: Unauthenticated by default until user logs in
   });
 
-  const [token, setToken] = useState(() => localStorage.getItem('token') || 'demo-token');
+  const [token, setToken] = useState(() => localStorage.getItem('token') || null);
 
   useEffect(() => {
     if (user) {
@@ -56,25 +80,63 @@ export const AuthProvider = ({ children }) => {
   }, [user]);
 
   const login = async (username, password) => {
-    const res = await authService.login({ username, password });
-    if (res.success) {
-      let role = 'PATIENT';
-      if (username.toLowerCase().includes('admin')) role = 'ADMIN';
-      else if (username.toLowerCase().includes('doctor')) role = 'DOCTOR';
+    const normalizedUser = (username || '').trim().toLowerCase();
+    const trimmedPass = (password || '').trim();
 
-      const userObj = {
-        id: res.data.userId || 101,
-        username: username,
-        name: username.split('@')[0],
-        role: role,
-        token: res.data.token || 'jwt-active-token'
-      };
-      setUser(userObj);
-      setToken(res.data.token);
-      localStorage.setItem('token', res.data.token);
-      return { success: true, user: userObj };
+    // 1. Try real backend API if online
+    try {
+      const res = await authService.login({ username: normalizedUser, password: trimmedPass });
+      if (res.success && res.data && res.data.token) {
+        let role = 'PATIENT';
+        if (normalizedUser.includes('admin')) role = 'ADMIN';
+        else if (normalizedUser.includes('doctor') || normalizedUser.includes('dr.')) role = 'DOCTOR';
+
+        const userObj = {
+          id: res.data.userId || 101,
+          username: username,
+          name: username.split('@')[0],
+          role: role,
+          token: res.data.token
+        };
+        setUser(userObj);
+        setToken(res.data.token);
+        localStorage.setItem('token', res.data.token);
+        return { success: true, user: userObj };
+      }
+    } catch (e) {
+      // Backend offline, fallback to strict credentials check
     }
-    return { success: false, error: 'Authentication failed' };
+
+    // 2. Validate Default Verified Accounts
+    if ((normalizedUser === 'admin@medicareplus.in' || normalizedUser === 'admin') && trimmedPass === 'Admin@123') {
+      const adminUser = DEMO_USERS.ADMIN;
+      setUser(adminUser);
+      setToken(adminUser.token);
+      localStorage.setItem('token', adminUser.token);
+      return { success: true, user: adminUser };
+    }
+
+    if ((normalizedUser === 'dr.rajesh@medicare.in' || normalizedUser === 'doctor') && trimmedPass === 'Doctor@123') {
+      const docUser = DEMO_USERS.DOCTOR;
+      setUser(docUser);
+      setToken(docUser.token);
+      localStorage.setItem('token', docUser.token);
+      return { success: true, user: docUser };
+    }
+
+    if ((normalizedUser === 'rahul.deshmukh@gmail.com' || normalizedUser === 'patient') && trimmedPass === 'Patient@123') {
+      const patientUser = DEMO_USERS.PATIENT;
+      setUser(patientUser);
+      setToken(patientUser.token);
+      localStorage.setItem('token', patientUser.token);
+      return { success: true, user: patientUser };
+    }
+
+    // 3. Reject invalid credentials
+    return { 
+      success: false, 
+      error: 'Invalid email or password. Please use the verified demo credentials provided below.' 
+    };
   };
 
   const register = async (userData) => {
