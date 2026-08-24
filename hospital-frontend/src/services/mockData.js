@@ -209,42 +209,158 @@ export const MOCK_APPOINTMENTS = [
 ];
 
 export const MOCK_AI_RESPONSES = {
-  symptoms: (symptoms) => `Based on your symptoms ("${symptoms}"):
-• Possible Indications: Tension headache, seasonal allergies, or early viral infection.
-• Recommended Specialist: General Physician / Internal Medicine.
-• Next Steps: Maintain hydration, monitor temperature, and seek a clinical evaluation if fever exceeds 101°F (38.3°C).
-• Note: This is an automated preliminary assessment and not a definitive diagnosis.`,
-
-  doctor: (condition) => `For condition "${condition}":
-• Recommended Specialty: Cardiology / Internal Medicine Specialist.
-• Why: Specialists in this department have advanced imaging (Echocardiogram, ECG, Holter monitors) to evaluate symptoms accurately.
-• Top Matching Specialists: Dr. Rajesh Sharma (Cardiology), Dr. Priya Sharma (Internal Medicine).`,
-
-  medicine: (medicine) => `Medication Profile for "${medicine}":
-• Primary Uses: Pain relief, fever reduction, anti-inflammatory.
-• Standard Adult Dosage: Follow prescribing doctor instructions (typically 500mg-650mg every 6-8 hrs as needed).
-• Common Precautions: Take with food/milk to prevent gastrointestinal discomfort. Avoid alcohol during therapy.
-• Contraindications: Kidney or liver disease patients should consult their physician before use.`,
-
-  interaction: (medicines) => `Interaction Analysis for [${medicines}]:
-• Safety Verdict: ⚠️ Moderate Caution Advised.
-• Interaction Mechanism: Concurrent administration may increase risk of gastric irritation or altered drug metabolism.
-• Clinical Recommendation: Take with a gap of 2 hours between doses and consult your prescribing pharmacist.`,
-
-  emergency: (symptoms) => {
-    const isCritical = /chest pain|breath|stroke|unconscious|bleed|numbness/i.test(symptoms);
-    if (isCritical) {
-      return `🚨 URGENT MEDICAL ATTENTION REQUIRED:
-Your symptoms ("${symptoms}") indicate potential signs of a severe or critical health condition.
-• Immediate Action: Please call emergency ambulance services (108 / 112 / 102) or visit the nearest Hospital Emergency Room immediately.
-• Do not drive yourself. Avoid heavy physical exertion while awaiting paramedic support.`;
+  symptoms: (symptoms = '') => {
+    const q = symptoms.toLowerCase();
+    if (q.includes('leg') || q.includes('knee') || q.includes('bone') || q.includes('joint') || q.includes('walk') || q.includes('ankle') || q.includes('thigh') || q.includes('calf') || q.includes('feet') || q.includes('foot')) {
+      return `Based on your symptoms ("${symptoms}"):
+• Possible Indications: Muscle strain, ligament sprain, sciatica, peripheral neuropathy, or localized joint inflammation.
+• Severity Assessment: Moderate (Evaluate if swelling, inability to bear weight, or numbness is present).
+• Recommended Specialist: Orthopedics / Joint & Spine Specialist (e.g. Dr. Vikram Malhotra).
+• Immediate Advice: Apply R.I.C.E protocol (Rest, Ice for 15-20 min, Compression, Elevation), avoid high-impact exertion, and consult an orthopedic physician if pain persists for >48 hours.`;
     }
-    return `ℹ️ Non-Critical Assessment:
-Your symptoms do not immediately match typical acute emergencies, but continue monitoring. If symptoms suddenly worsen, seek emergency care.`;
+    if (q.includes('stomach') || q.includes('abdomen') || q.includes('digest') || q.includes('nausea') || q.includes('vomit') || q.includes('acidity') || q.includes('gastric') || q.includes('belly') || q.includes('cramp') || q.includes('gut')) {
+      return `Based on your symptoms ("${symptoms}"):
+• Possible Indications: Acute gastritis, gastroenteritis, acid reflux (GERD), food intolerance, or irritable bowel flare.
+• Severity Assessment: Mild to Moderate (Seek immediate attention if severe localized lower-right pain, persistent vomiting, or high fever occurs).
+• Recommended Specialist: Gastroenterologist / General Physician (e.g. Dr. Priya Sharma).
+• Immediate Advice: Sip oral rehydration fluids (ORS), eat bland foods (khichdi, bananas, toast), avoid spicy/greasy meals, and get evaluated if symptoms intensify.`;
+    }
+    if (q.includes('head') || q.includes('migraine') || q.includes('dizzy') || q.includes('vertigo') || q.includes('vision') || q.includes('brain')) {
+      return `Based on your symptoms ("${symptoms}"):
+• Possible Indications: Tension headache, episodic migraine, cervical strain, or dehydration.
+• Severity Assessment: Moderate (Red flags: sudden 'thunderclap' headache, visual loss, or speech difficulty).
+• Recommended Specialist: Neurologist / Neuro-Physician (e.g. Dr. Ananya Iyer).
+• Immediate Advice: Rest in a dark, quiet room, stay well-hydrated, avoid screen glare, and take prescribed mild analgesics if approved by your doctor.`;
+    }
+    if (q.includes('chest') || q.includes('heart') || q.includes('breath') || q.includes('palpitation')) {
+      return `🚨 URGENT CLINICAL ASSESSMENT:
+Based on your symptoms ("${symptoms}"):
+• Possible Indications: Angina pectoris, cardiovascular strain, severe asthma/bronchospasm, or acute anxiety.
+• Severity Assessment: High / Critical.
+• Recommended Specialist: Cardiologist / Pulmonologist (e.g. Dr. Rajesh Sharma).
+• Immediate Action: Do not exert physically. If accompanied by radiating arm/jaw pain or sweating, call 108 / 112 emergency ambulance immediately.`;
+    }
+    if (q.includes('cough') || q.includes('fever') || q.includes('cold') || q.includes('throat') || q.includes('flu')) {
+      return `Based on your symptoms ("${symptoms}"):
+• Possible Indications: Acute viral upper respiratory tract infection, seasonal flu, or pharyngitis.
+• Severity Assessment: Mild (Monitor temperature and oxygen saturation).
+• Recommended Specialist: General Physician / Internal Medicine (e.g. Dr. Priya Sharma).
+• Immediate Advice: Steam inhalation twice daily, warm saline gargles, adequate hydration (2.5L+ warm fluids), and paracetamol for fever control as clinically advised.`;
+    }
+    return `Based on your symptoms ("${symptoms}"):
+• Possible Indications: Localized somatic symptom, muscular fatigue, or mild acute inflammation.
+• Severity Assessment: Mild to Moderate.
+• Recommended Specialist: General Physician / Internal Medicine (e.g. Dr. Priya Sharma).
+• Next Steps: Monitor symptom progression over 24-48 hours, ensure rest and hydration, and book an in-person clinical evaluation if discomfort continues.
+• Note: Automated clinical decision support; not a substitute for formal diagnosis.`;
   },
 
-  diet: (condition) => `Medical Nutrition Plan for "${condition}":
-• Foods to Prioritize: Dal, leafy greens (palak, methi), paneer, lean protein, oats, sprouts, and 2.5L+ daily water intake.
-• Foods to Restrict: Ultra-processed foods, high sodium items (>2000mg/day), refined sugars, and saturated trans-fats.
-• Lifestyle Advice: 30 minutes of moderate aerobic walking daily and maintaining regular sleep intervals.`
+  doctor: (condition = '') => {
+    const q = condition.toLowerCase();
+    if (q.includes('heart') || q.includes('cardio') || q.includes('bp') || q.includes('pressure') || q.includes('chest')) {
+      return `For condition "${condition}":
+• Recommended Specialty: Cardiology / Cardiovascular Medicine.
+• Primary Diagnostic Tests: 12-Lead ECG, 2D Echocardiography, Lipid Profile, TMT (Treadmill Test).
+• Top Matching Specialists: Dr. Rajesh Sharma (AIIMS New Delhi, Apollo Hospital).`;
+    }
+    if (q.includes('neuro') || q.includes('brain') || q.includes('nerve') || q.includes('migraine') || q.includes('spine') || q.includes('paralysis')) {
+      return `For condition "${condition}":
+• Recommended Specialty: Neurology & Neurosurgery.
+• Primary Diagnostic Tests: Brain MRI / CT Scan, EEG, Nerve Conduction Study (NCS).
+• Top Matching Specialists: Dr. Ananya Iyer (NIMHANS Bengaluru, Fortis Neuro Center).`;
+    }
+    if (q.includes('bone') || q.includes('joint') || q.includes('fracture') || q.includes('knee') || q.includes('leg') || q.includes('back')) {
+      return `For condition "${condition}":
+• Recommended Specialty: Orthopedics & Joint Reconstruction.
+• Primary Diagnostic Tests: Digital X-Ray, Bone Mineral Density (DEXA), Joint Ultrasound / MRI.
+• Top Matching Specialists: Dr. Vikram Malhotra (Manipal Hospital, Max Super Specialty).`;
+    }
+    if (q.includes('child') || q.includes('baby') || q.includes('pediatric') || q.includes('infant') || q.includes('kid')) {
+      return `For condition "${condition}":
+• Recommended Specialty: Pediatrics & Child Healthcare.
+• Top Matching Specialists: Dr. Rohan Kulkarni (KEM Hospital Mumbai, Apollo Children's Pavilion).`;
+    }
+    return `For condition "${condition}":
+• Recommended Specialty: Internal Medicine / General Physician.
+• Why: A comprehensive physician evaluates systemic symptoms, orders baseline pathology (CBC, LFT, KFT), and coordinates specialist referrals if required.
+• Top Matching Specialists: Dr. Priya Sharma (AIIMS Delhi, MediCare Clinic).`;
+  },
+
+  medicine: (medicine = '') => {
+    const q = medicine.toLowerCase();
+    if (q.includes('paracetamol') || q.includes('dolo') || q.includes('crocin')) {
+      return `Clinical Medication Profile for "${medicine}":
+• Generic Name: Paracetamol / Acetaminophen (Antipyretic & Analgesic).
+• Primary Uses: Relief of mild to moderate pain (headaches, muscular aches) and fever reduction.
+• Standard Adult Dosage: 500mg – 650mg every 4 to 6 hours as needed (Maximum 3000mg/day to protect liver).
+• Precautions: Avoid alcohol during therapy. Patients with liver impairment must consult their doctor before use.`;
+    }
+    if (q.includes('metformin') || q.includes('sugar') || q.includes('glycomet')) {
+      return `Clinical Medication Profile for "${medicine}":
+• Generic Name: Metformin Hydrochloride (Biguanide Antidiabetic).
+• Primary Uses: Management of Type 2 Diabetes Mellitus to improve insulin sensitivity and glycemic control.
+• Administration: Take with or immediately after meals to reduce gastrointestinal upset.
+• Precautions: Regular kidney function (eGFR/Creatinine) monitoring required. Avoid high alcohol intake.`;
+    }
+    if (q.includes('pantoprazole') || q.includes('pan') || q.includes('omeprazole') || q.includes('rabeprazole')) {
+      return `Clinical Medication Profile for "${medicine}":
+• Generic Name: Proton Pump Inhibitor (PPI).
+• Primary Uses: Gastroesophageal Reflux Disease (GERD), gastric acidity, peptic ulcer prevention.
+• Administration: Best taken once daily in the morning, 30 to 45 minutes before breakfast with water.`;
+    }
+    return `Medication Profile for "${medicine}":
+• Primary Classification: Prescribed Therapeutic Pharmaceutical / Supplement.
+• Primary Uses: Disease management, symptom alleviation, and metabolic regulation under medical supervision.
+• Standard Guidance: Take strictly as prescribed by your treating physician. Do not alter dosage without consultation.
+• Common Precautions: Take with water/food to minimize gastric discomfort; check for allergic reactions.`;
+  },
+
+  interaction: (medicines = '') => {
+    return `Interaction & Safety Screening for [${medicines}]:
+• Analysis: Evaluated drug-to-drug metabolic pathways (CYP450 enzymes, renal clearance, and gastric absorption).
+• Clinical Recommendation: Maintain a minimum 1 to 2 hour interval between medications unless explicitly co-prescribed.
+• Safety Notice: Always notify your doctor or pharmacist of all concurrent OTC medications and herbal supplements.`;
+  },
+
+  emergency: (symptoms = '') => {
+    const isCritical = /chest|breath|stroke|unconscious|bleed|numb|paraly|chok|seizure|heart/i.test(symptoms);
+    if (isCritical) {
+      return `🚨 URGENT MEDICAL EMERGENCY (RED ALERT):
+Your reported symptoms ("${symptoms}") match clinical criteria for potential high-acuity emergencies.
+• Immediate Action: Call 108 / 112 emergency ambulance services or proceed immediately to the nearest Hospital Emergency Room.
+• Critical Instructions: Do not drive yourself. Keep the patient in a comfortable seated or recovery position while waiting for paramedics.`;
+    }
+    return `ℹ️ Non-Critical Triage Assessment:
+Your symptoms ("${symptoms}") do not immediately indicate acute life-threatening trauma, but require close monitoring.
+• Recommendation: Schedule an in-person outpatient consultation with a physician. If severe pain, high fever, or breathing difficulty develops, seek emergency care immediately.`;
+  },
+
+  diet: (condition = '') => {
+    const q = condition.toLowerCase();
+    if (q.includes('egg') || q.includes('protein')) {
+      return `Nutritional Breakdown & Dietary Profile for "${condition}":
+• Protein Content in Eggs:
+  - 1 Large Whole Boiled Egg (50g): ~6.3 grams of complete protein (all 9 essential amino acids).
+  - Egg White (Albumin): ~3.6 grams protein, 0g fat, high bio-availability.
+  - Egg Yolk: ~2.7 grams protein, healthy fats, Choline, Vitamin B12, Vitamin D, Lutein.
+• Health Benefits: Supports muscle synthesis, brain health, eye vision protection, and satiety for weight management.
+• Recommended Intake: 1-3 whole eggs daily for healthy active adults; consult a dietitian for specific cholesterol goals.`;
+    }
+    if (q.includes('sugar') || q.includes('diabet')) {
+      return `Medical Nutrition Plan for Diabetes / Blood Sugar Control:
+• Foods to Prioritize: Methi (fenugreek) seeds, bitter gourd (karela), whole dal, paneer, leafy greens (palak, methi), oats, and high-fiber millets (ragi, jowar).
+• Foods to Restrict: Refined sugar, white rice, sweetened beverages, fruit juices, and maida products.
+• Routine: Small frequent meals and a 15-minute post-meal brisk walk to stabilize glucose spikes.`;
+    }
+    if (q.includes('bp') || q.includes('hypertension') || q.includes('pressure')) {
+      return `Medical Nutrition Plan for High Blood Pressure (DASH Protocol):
+• Foods to Prioritize: Potassium-rich fruits (banana, pomegranate), garlic, steamed vegetables, coconut water, flax seeds, and unsalted nuts.
+• Foods to Avoid: High-sodium pickles, papads, packaged chips, processed meats, and excess caffeine.
+• Target Sodium: Restrict daily salt intake to under 1 teaspoon (<2,300mg sodium) per day.`;
+    }
+    return `Clinical Nutrition & Diet Plan for "${condition}":
+• Foods to Prioritize: High-fiber legumes, seasonal green vegetables, lean proteins, sprouts, whole grains, and 2.5L+ daily water.
+• Foods to Restrict: Ultra-processed items, deep-fried snacks, excess refined sugars, and high-sodium packaged foods.
+• Lifestyle Advice: Pair balanced nutrition with 30 minutes of moderate aerobic exercise and 7-8 hours of sleep.`;
+  }
 };
