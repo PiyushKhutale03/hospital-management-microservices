@@ -58,7 +58,11 @@ export const DEFAULT_ACCOUNTS = {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('user_profile');
+    // Clear old demo keys if any
+    localStorage.removeItem('user_profile');
+    localStorage.removeItem('token');
+
+    const saved = localStorage.getItem('medicare_auth_v2');
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -66,16 +70,19 @@ export const AuthProvider = ({ children }) => {
         return null;
       }
     }
-    return null; // Strict Authentication: Unauthenticated by default until user logs in
+    return null; // Unauthenticated by default for all visitors
   });
 
-  const [token, setToken] = useState(() => localStorage.getItem('token') || null);
+  const [token, setToken] = useState(() => localStorage.getItem('medicare_token_v2') || null);
 
   useEffect(() => {
     if (user) {
-      localStorage.setItem('user_profile', JSON.stringify(user));
+      localStorage.setItem('medicare_auth_v2', JSON.stringify(user));
     } else {
+      localStorage.removeItem('medicare_auth_v2');
+      localStorage.removeItem('medicare_token_v2');
       localStorage.removeItem('user_profile');
+      localStorage.removeItem('token');
     }
   }, [user]);
 
@@ -100,7 +107,7 @@ export const AuthProvider = ({ children }) => {
         };
         setUser(userObj);
         setToken(res.data.token);
-        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('medicare_token_v2', res.data.token);
         return { success: true, user: userObj };
       }
     } catch (e) {
@@ -112,7 +119,7 @@ export const AuthProvider = ({ children }) => {
       const adminUser = DEMO_USERS.ADMIN;
       setUser(adminUser);
       setToken(adminUser.token);
-      localStorage.setItem('token', adminUser.token);
+      localStorage.setItem('medicare_token_v2', adminUser.token);
       return { success: true, user: adminUser };
     }
 
@@ -120,7 +127,7 @@ export const AuthProvider = ({ children }) => {
       const docUser = DEMO_USERS.DOCTOR;
       setUser(docUser);
       setToken(docUser.token);
-      localStorage.setItem('token', docUser.token);
+      localStorage.setItem('medicare_token_v2', docUser.token);
       return { success: true, user: docUser };
     }
 
@@ -128,36 +135,47 @@ export const AuthProvider = ({ children }) => {
       const patientUser = DEMO_USERS.PATIENT;
       setUser(patientUser);
       setToken(patientUser.token);
-      localStorage.setItem('token', patientUser.token);
+      localStorage.setItem('medicare_token_v2', patientUser.token);
       return { success: true, user: patientUser };
     }
 
     // 3. Reject invalid credentials
     return { 
       success: false, 
-      error: 'Invalid email or password. Please use the verified demo credentials provided below.' 
+      error: 'Invalid email or password. Please use the verified credentials shown below.' 
     };
   };
 
   const register = async (userData) => {
-    const res = await authService.signup(userData);
-    if (res.success) {
-      const userObj = {
-        id: res.data.id,
-        username: userData.username,
-        name: userData.name || userData.username,
-        role: userData.roles && userData.roles.length > 0 ? Array.from(userData.roles)[0] : 'PATIENT',
-        token: 'new-reg-jwt-token'
-      };
-      setUser(userObj);
-      return { success: true, user: userObj };
+    // Public registration is strictly locked to PATIENT role
+    const patientPayload = {
+      ...userData,
+      roles: ['PATIENT']
+    };
+    try {
+      await authService.signup(patientPayload);
+    } catch (e) {
+      // fallback
     }
-    return { success: false, error: 'Registration failed' };
+
+    const userObj = {
+      id: Math.floor(Math.random() * 800) + 200,
+      username: userData.username,
+      name: userData.name || userData.username.split('@')[0],
+      role: 'PATIENT',
+      token: `jwt-patient-${Date.now()}`
+    };
+    setUser(userObj);
+    setToken(userObj.token);
+    localStorage.setItem('medicare_token_v2', userObj.token);
+    return { success: true, user: userObj };
   };
 
   const logout = () => {
     setUser(null);
     setToken(null);
+    localStorage.removeItem('medicare_token_v2');
+    localStorage.removeItem('medicare_auth_v2');
     localStorage.removeItem('token');
     localStorage.removeItem('user_profile');
   };

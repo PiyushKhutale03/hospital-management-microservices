@@ -120,24 +120,9 @@ export default function LoginPage() {
             
             {isSignUp && (
               <>
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                    Select Role
-                  </label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {['PATIENT', 'DOCTOR', 'ADMIN'].map((r) => (
-                      <button
-                        type="button"
-                        key={r}
-                        onClick={() => setRole(r)}
-                        className={`py-2 text-xs font-bold rounded-xl border transition-all text-center ${
-                          role === r ? 'border-brand-600 bg-brand-50 text-brand-700' : 'border-slate-200 text-slate-600'
-                        }`}
-                      >
-                        {r}
-                      </button>
-                    ))}
-                  </div>
+                <div className="p-3 rounded-2xl bg-brand-50/70 border border-brand-200 text-brand-900 text-xs flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-brand-600 shrink-0" />
+                  <span>Public registration creates a <strong>Patient Portal</strong> account. Doctor & Admin credentials are provided by Hospital Administration.</span>
                 </div>
 
                 <div>
@@ -150,8 +135,9 @@ export default function LoginPage() {
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Rahul Deshmukh"
+                      placeholder="E.g., Pooja Patel"
                       className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand-500 outline-none"
+                      required
                     />
                   </div>
                 </div>
