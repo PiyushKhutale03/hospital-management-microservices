@@ -60,7 +60,7 @@ export default function PatientDashboard({ onOpenBookModal, onSelectDoctorForBoo
               Patient Portal • ID #{user?.id || 101}
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Welcome, {user?.name || 'Alexander Ross'}
+              Welcome, {user?.name || 'Rahul Deshmukh'}
             </h1>
             <p className="text-xs sm:text-sm text-brand-100 mt-0.5">
               Manage your healthcare visits, insurance coverage, and digital prescriptions.
@@ -105,7 +105,7 @@ export default function PatientDashboard({ onOpenBookModal, onSelectDoctorForBoo
             </div>
             <div className="flex items-center justify-between text-xs">
               <span className="text-slate-500">Date of Birth:</span>
-              <span className="font-semibold text-slate-800">{profile?.birthDate || 'April 12, 1988'}</span>
+              <span className="font-semibold text-slate-800">{profile?.birthDate || 'April 12, 1992'}</span>
             </div>
             <div className="flex items-center justify-between text-xs">
               <span className="text-slate-500">Gender:</span>
@@ -113,7 +113,7 @@ export default function PatientDashboard({ onOpenBookModal, onSelectDoctorForBoo
             </div>
             <div className="flex items-center justify-between text-xs">
               <span className="text-slate-500">Primary Contact:</span>
-              <span className="font-semibold text-slate-800">{profile?.phone || '+1 (555) 789-0123'}</span>
+              <span className="font-semibold text-slate-800">{profile?.phone || '+91 98200 11223'}</span>
             </div>
           </div>
         </div>
@@ -127,17 +127,17 @@ export default function PatientDashboard({ onOpenBookModal, onSelectDoctorForBoo
           <div className="space-y-2 pt-1">
             <div className="flex items-center justify-between text-xs">
               <span className="text-slate-500">Provider:</span>
-              <span className="font-bold text-slate-800">{profile?.insurance?.providerName || 'BlueCross Health'}</span>
+              <span className="font-bold text-slate-800">{profile?.insurance?.providerName || 'Star Health Insurance'}</span>
             </div>
             <div className="flex items-center justify-between text-xs">
               <span className="text-slate-500">Policy Number:</span>
               <span className="font-mono text-xs font-semibold text-brand-700 bg-brand-50 px-1.5 py-0.5 rounded">
-                {profile?.insurance?.policyNumber || 'BC-9982410'}
+                {profile?.insurance?.policyNumber || 'STAR-9982410'}
               </span>
             </div>
             <div className="flex items-center justify-between text-xs">
               <span className="text-slate-500">Coverage Limit:</span>
-              <span className="font-extrabold text-emerald-600">{profile?.insurance?.coverageAmount || '$50,000'}</span>
+              <span className="font-extrabold text-emerald-600">{profile?.insurance?.coverageAmount || '₹5,00,000'}</span>
             </div>
             <div className="flex items-center justify-between text-xs">
               <span className="text-slate-500">Valid Till:</span>

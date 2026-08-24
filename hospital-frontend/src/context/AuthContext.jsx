@@ -6,8 +6,8 @@ const AuthContext = createContext(null);
 export const DEMO_USERS = {
   PATIENT: {
     id: 101,
-    username: 'alex.ross@example.com',
-    name: 'Alexander Ross',
+    username: 'rahul.deshmukh@gmail.com',
+    name: 'Rahul Deshmukh',
     role: 'PATIENT',
     token: 'demo-jwt-patient',
     bloodGroup: 'O+',
@@ -15,17 +15,17 @@ export const DEMO_USERS = {
   },
   DOCTOR: {
     id: 1,
-    username: 'dr.sarah@medicare.org',
-    name: 'Dr. Sarah Jenkins',
+    username: 'dr.rajesh@medicare.in',
+    name: 'Dr. Rajesh Sharma',
     role: 'DOCTOR',
     specialization: 'Cardiology',
     token: 'demo-jwt-doctor',
-    avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=200'
+    avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=200'
   },
   ADMIN: {
     id: 999,
-    username: 'admin@hospital.org',
-    name: 'Chief Administrator (Piyush)',
+    username: 'admin@medicareplus.in',
+    name: 'Chief Administrator (Piyush Khutale)',
     role: 'ADMIN',
     token: 'demo-jwt-admin',
     avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200'

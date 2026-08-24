@@ -138,7 +138,7 @@ export default function Navbar({ onOpenBookModal }) {
                     <span className="w-2 h-2 rounded-full bg-brand-500"></span>
                     <div>
                       <div className="font-semibold">Patient Mode</div>
-                      <div className="text-[10px] text-slate-400">Alexander Ross (Appointments, AI)</div>
+                      <div className="text-[10px] text-slate-400">Rahul Deshmukh (Appointments, AI)</div>
                     </div>
                   </button>
                   <button
@@ -148,7 +148,7 @@ export default function Navbar({ onOpenBookModal }) {
                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                     <div>
                       <div className="font-semibold">Doctor Mode</div>
-                      <div className="text-[10px] text-slate-400">Dr. Sarah Jenkins (Cardiology)</div>
+                      <div className="text-[10px] text-slate-400">Dr. Rajesh Sharma (Cardiology)</div>
                     </div>
                   </button>
                   <button
@@ -158,7 +158,7 @@ export default function Navbar({ onOpenBookModal }) {
                     <span className="w-2 h-2 rounded-full bg-amber-500"></span>
                     <div>
                       <div className="font-semibold">Admin Mode</div>
-                      <div className="text-[10px] text-slate-400">Super Administrator (Onboard, Records)</div>
+                      <div className="text-[10px] text-slate-400">Chief Admin (Piyush Khutale)</div>
                     </div>
                   </button>
                 </div>

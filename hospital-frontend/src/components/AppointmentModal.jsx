@@ -55,7 +55,7 @@ export default function AppointmentModal({ isOpen, onClose, selectedDoctorId, on
       doctorId: Number(doctorId),
       appointmentTime: appointmentIso,
       reason: reason || 'General clinical consultation',
-      name: user?.name || 'Alexander Ross'
+      name: user?.name || 'Rahul Deshmukh'
     };
 
     try {
@@ -149,7 +149,7 @@ export default function AppointmentModal({ isOpen, onClose, selectedDoctorId, on
               </div>
               <div className="text-xs">
                 <div className="font-bold text-slate-800">{currentDoctor.name}</div>
-                <div className="text-brand-700 font-medium">{currentDoctor.specialization} • Consultation Fee: {currentDoctor.fee || '$100'}</div>
+                <div className="text-brand-700 font-medium">{currentDoctor.specialization} • Consultation Fee: {currentDoctor.fee || '₹800'}</div>
               </div>
             </div>
           )}

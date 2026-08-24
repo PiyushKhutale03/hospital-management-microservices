@@ -63,10 +63,10 @@ export default function DoctorDashboard() {
               Doctor Portal • Attending Physician
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              {user?.name || 'Dr. Sarah Jenkins'}
+              {user?.name || 'Dr. Rajesh Sharma'}
             </h1>
             <p className="text-xs sm:text-sm text-emerald-100 mt-0.5">
-              Specialization: <strong className="text-white">{user?.specialization || 'Cardiology & Heart Health'}</strong> • Main Campus Wing A
+              Specialization: <strong className="text-white">{user?.specialization || 'Cardiology & Heart Health'}</strong> • Apollo Main Campus
             </p>
           </div>
         </div>

@@ -13,7 +13,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: \
     ports:
-      - "5432:5432"
+      - "5434:5432"
     volumes:
       - patient_db_data:/var/lib/postgresql/data
     healthcheck:
@@ -138,21 +138,7 @@ services:
       - hospital-net
 
   # =========================================================================
-  # 4. Ollama LLM Service (For AI Service)
-  # =========================================================================
-  ollama:
-    image: ollama/ollama:latest
-    container_name: hospital-ollama
-    restart: always
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama_data:/root/.ollama
-    networks:
-      - hospital-net
-
-  # =========================================================================
-  # 5. API Gateway
+  # 4. API Gateway
   # =========================================================================
   api-gateway:
     build:
@@ -174,7 +160,7 @@ services:
       - hospital-net
 
   # =========================================================================
-  # 6. React Frontend Application
+  # 5. React Frontend Application
   # =========================================================================
   hospital-frontend:
     build:
@@ -194,7 +180,6 @@ services:
 volumes:
   patient_db_data:
   doctor_db_data:
-  ollama_data:
 
 networks:
   hospital-net:

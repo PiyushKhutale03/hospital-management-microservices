@@ -194,7 +194,7 @@ export default function AdminDashboard() {
                       <div className="font-mono text-[10px] text-slate-400">{p.insurance?.policyNumber || 'BC-99824'}</div>
                     </td>
                     <td className="py-3 px-3 font-bold text-emerald-600">
-                      {p.insurance?.coverageAmount || '$50,000'}
+                      {p.insurance?.coverageAmount || '₹5,00,000'}
                     </td>
                     <td className="py-3 px-3">
                       <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">

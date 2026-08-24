@@ -261,7 +261,7 @@ export default function HomePage({ onOpenBookModal, onSelectDoctorForBooking }) 
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Consultation Fee:</span>
-                    <strong className="text-slate-900 font-bold">{doctor.fee || '$100'}</strong>
+                    <strong className="text-slate-900 font-bold">{doctor.fee || '₹800'}</strong>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Status:</span>

@@ -103,10 +103,10 @@ export const doctorService = {
         name: doctorData.name,
         specialization: doctorData.specialization,
         available: true,
-        fee: '$100',
+        fee: '₹800',
         rating: 5.0,
         experienceYears: 5,
-        hospital: 'Medicare General Wing'
+        hospital: 'MediCare Multi-Specialty Clinic'
       };
       MOCK_DOCTORS.unshift(newDoc);
       return { success: true, data: newDoc };
@@ -157,7 +157,7 @@ export const patientService = {
       const newAppt = {
         id: Math.floor(Math.random() * 9000) + 1000,
         patientId: appointmentData.patientId || 101,
-        patientName: 'Alexander Ross',
+        patientName: appointmentData.name || 'Rahul Deshmukh',
         doctorId: appointmentData.doctorId,
         doctorName: 'Specialist Physician',
         specialization: 'General',
