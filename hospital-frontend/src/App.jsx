@@ -45,7 +45,7 @@ export default function App() {
               <Route 
                 path="/patient" 
                 element={
-                  <ProtectedRoute allowedRoles={['PATIENT', 'ADMIN']}>
+                  <ProtectedRoute allowedRoles={['PATIENT']}>
                     <PatientDashboard 
                       onOpenBookModal={() => handleOpenBookModal()} 
                       onSelectDoctorForBooking={(id) => handleOpenBookModal(id)}
@@ -56,7 +56,7 @@ export default function App() {
               <Route 
                 path="/doctor" 
                 element={
-                  <ProtectedRoute allowedRoles={['DOCTOR', 'ADMIN']}>
+                  <ProtectedRoute allowedRoles={['DOCTOR']}>
                     <DoctorDashboard />
                   </ProtectedRoute>
                 } 
